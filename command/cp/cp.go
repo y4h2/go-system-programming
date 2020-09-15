@@ -1,4 +1,4 @@
-package command
+package main
 
 import (
 	"io"
@@ -14,11 +14,13 @@ func cp(src, dest string) error {
 	if err != nil {
 		return errors.Wrap(err, "open input file")
 	}
+	defer iFile.Close()
 
 	oFile, err := os.OpenFile(dest, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666)
 	if err != nil {
 		return errors.Wrap(err, "open output fiel")
 	}
+	defer oFile.Close()
 
 	b := make([]byte, BUF_SIZE)
 	for {

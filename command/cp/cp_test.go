@@ -1,4 +1,4 @@
-package command
+package main
 
 import (
 	"bytes"
@@ -36,4 +36,14 @@ func compareFiles(t *testing.T, f1, f2 string) bool {
 	}
 
 	return bytes.Equal(b1, b2)
+}
+
+func TestExample(t *testing.T) {
+	assert := assert.New(t)
+
+	source := "./cp_test.go"
+	target := "./temp.go"
+	err := cp(source, target)
+	assert.NoError(err)
+	assert.True(compareFiles(t, source, target))
 }
